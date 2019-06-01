@@ -20,13 +20,22 @@ export class LoginPage {
 
   telNumber:string='';
   password:string='';
+  userName:'';
+  avatar:'';
 
   constructor(private alertCtrl: AlertController,private http: HTTP,public navCtrl: NavController, public navParams: NavParams) {
   
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    let elements = document.querySelectorAll(".tabbar");
+    if (elements != null) {
+        Object.keys(elements).map((key) => {
+            elements[key].style.display = 'none';
+        });
+    } 
   }
 
   // 错误信息提示框
@@ -74,8 +83,9 @@ export class LoginPage {
         .then(data=>{
 
           var num = data['data'];
-
-          console.log(typeof num,num);
+          // console.log(num);
+          
+          // console.log(typeof num,num);
           if(num == '0'){
             this.presentAlert('用户名不存在！');
           }else if(num == '2') {
@@ -84,13 +94,27 @@ export class LoginPage {
             this.presentAlert('数据库错误');
           }else{
             // console.log(TabsPage);
-            this.navCtrl.push(TabsPage);
+            num = parseInt(num.slice(10,-1));
+            this.navCtrl.setRoot(TabsPage);
             window.localStorage.setItem('userID',num);
             window.localStorage.setItem('login','true');
+            
+            this.http.post('http://39.107.66.152:8080/mine',{
+              userID:num
+            },{}).then(res=>{
+              // console.log(res['data']);
+              var obj = JSON.parse(res['data'])[0];
+              window.localStorage.setItem('userName',obj.userName);
+              window.localStorage.setItem('avatar',obj.avatar);
+              // console.log(window.localStorage.getItem('userName'),window.localStorage.getItem('avatar'));
+            }).catch(err=>{
+              console.log('LoginPage-我的基本信息请求报错：',err);
+            });
+
           }
         }).catch(error => {
           console.log('error status:',error.status);
-          this.presentAlert(error.error);
+          // this.presentAlert(error.error);
         }); // post
       } // else-password
     } // else-username

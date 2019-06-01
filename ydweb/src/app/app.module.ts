@@ -11,7 +11,10 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HTTP } from '@ionic-native/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { Camera } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { ImageResizer} from '@ionic-native/image-resizer';
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +38,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    Geolocation,
+    ImagePicker,
+    ImageResizer,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -20,7 +20,10 @@ export class ChangepwdPage {
   password:string='';
   repassword:string='';
 
-  constructor(private alertCtrl: AlertController,private http: HTTP,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController,
+    private http: HTTP,
+    public navCtrl: NavController, 
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -86,7 +89,7 @@ export class ChangepwdPage {
           this.presentAlert('两次输入密码不符，请重新输入！');
         }else{
           var userId = localStorage.getItem('userID');
-          console.log(userId);
+          // console.log(userId);
           this.http.post('http://39.107.66.152:8080/mine/changePwd',{
             userID:userId,
             originPwd:this.oldpassword,
@@ -96,7 +99,7 @@ export class ChangepwdPage {
 
             var num = data['data'];
 
-            console.log(typeof num,num);
+            // console.log(typeof num,num);
             if(num == '0'){
               this.presentAlert('修改失败！');
             }else if(num == '5') {
@@ -109,7 +112,7 @@ export class ChangepwdPage {
             }
           }).catch(error => {
             console.log('error status:',error.status);
-            this.presentAlert(error.error);
+            // this.presentAlert(error.error);
           }); // post
         } // else-repassword
       } // else-password

@@ -7,60 +7,53 @@
 <ion-header class="header">
 
   <ion-navbar color="primary">
-    <ion-title>消息</ion-title>
+    <ion-title>
+      消息
+      <ion-icon (click)="goaddFriend()" class="icon" name="md-add"></ion-icon>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+
+  <!-- 下拉刷新 -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingText="下拉刷新" refreshingText="刷新中"></ion-refresher-content>
+    </ion-refresher>
+
   <div padding class="top">
     <ion-segment color="primary" [(ngModel)]="info">
       <ion-segment-button value="好友">
         好友
       </ion-segment-button>
       <ion-segment-button value="群组">
-        群组
+        通知
       </ion-segment-button>
     </ion-segment>
   </div>
       
-  <div class="bottom" [ngSwitch]="info">
+  <div id="bottom" class="bottom" [ngSwitch]="info">
 
     <!-- 群组 -->
     <ion-list *ngSwitchCase="'群组'">
-      <ion-item>
-        <ion-thumbnail  class="thumbnail"  item-start>
-          <img src="../assets/imgs/football.jpg" class="image">
-        </ion-thumbnail>
-        <p class="name">师大足球群</p>
-        <p>hfdisojfaksmvckdsjfcsd</p>
+      <ion-item class="myitem" (click)="choose(item.messageFrom,item.messageID,item.status)" *ngFor="let item of arr">
+        <p class="name">{{item.userName}}</p>
+        <p>{{item.messageContent}}</p>
+        <p class="time">{{item.messageTime}}</p>
+        <p class="status" [ngStyle]="{'color':item.status == '已读'?'red':'#999'}" >{{item.status == '已处理'? item.status:'未处理'}}</p>
       </ion-item>
-      
-      <ion-item>
-          <ion-thumbnail  class="thumbnail"  item-start>
-            <img src="../assets/imgs/sport1.jpg" class="image"> 
-          </ion-thumbnail>
-          <p class="name">石家庄运动群</p>
-          <p>hfdisojfaksmvckdsjfcsd</p>
-        </ion-item>
     </ion-list>
 
     <!-- 好友 -->
     <ion-list *ngSwitchCase="'好友'">
-      <ion-item>
+      <ion-item (click)="goDetail(item.userID,item.avatar,item.userName)" *ngFor="let item of personitems">
         <ion-thumbnail  class="thumbnail"  item-start>
-            <img src="../assets/imgs/sport1.jpg" class="image"> 
+            <img src="{{item.avatar}}" class="image"> 
         </ion-thumbnail>
-          <p class="name">张三</p>
-          <p>hfdisojfaksmvckdsjfcsd</p>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail  class="thumbnail"  item-start>
-          <img src="../assets/imgs/sport1.jpg" class="image"> 
-        </ion-thumbnail>
-        <p class="name">李四</p>
-        <p>hfdisojfaksmvckdsjfcsd</p>
+          <p class="name">{{item.userName}}</p>
+          <p>{{item.info}}</p>
       </ion-item>
     </ion-list>
 

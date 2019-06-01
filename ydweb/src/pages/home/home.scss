@@ -37,4 +37,38 @@ page-home{
     .item-md.item-block .item-inner{
         border:none;
     }
+    .topic{
+        .item{
+            .img{
+                padding:0;
+                margin:0;
+                width:35%;
+                height:70px;
+                display: inline-block;
+                border-radius:5%;          
+            }
+            .text{
+                display: inline-block;
+                padding-left:2%;
+                width:60%;
+                vertical-align: top;
+                .title{
+                   font-size: 16px; 
+                   font-weight: bold;
+                   color:#000;
+                }
+                .content{
+                    overflow: hidden;
+                    font-size: 12px;
+                }
+                .grade{
+                    vertical-align: bottom;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+    ion-label{
+        white-space: normal;
+    }
 }

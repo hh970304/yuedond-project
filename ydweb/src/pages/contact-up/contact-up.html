@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ContactUpPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>圈子</ion-title>
+    <span (click)="request()" class="right-title">发表</span>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class="div">
+
+      <textarea tag="actintro" (blur)="setValue($event)" class="textarea" rows="8" cols="39" placeholder="说点什么吧..."></textarea>
+      <div id="addImage" (click)="pictureLoad($event)" class="addimg">
+        <ion-icon name="md-camera"></ion-icon>
+        <p>照片</p>
+      </div>
+      <img id="image" (click)="pictureLoad()" style="background:url(assets/imgs/timg5.jpg)" alt="上传的图片"/>
+  </div>
+
+</ion-content>

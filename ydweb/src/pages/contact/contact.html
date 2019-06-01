@@ -1,50 +1,51 @@
-<ion-header>
-  <ion-navbar>
+<ion-header class="header">
+  <ion-navbar color="primary">
     <ion-title>
-      发现
+      圈子
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
- 
-    <ion-list >
-        <ion-item>
-           <ion-avatar item-start> 
-              <ion-label color="white"><ion-icon class="icon" name="ios-aperture"  ></ion-icon></ion-label>
-              <p style="margin-left:50px;margin-top:-25px;">运动圈</p>
-        
-          </ion-avatar> 
-          
-        </ion-item> 
-    </ion-list>
-    <ion-list >
-          <ion-item>
-            <ion-avatar item-start>
-                <ion-label color="white"><ion-icon class="icon" name="ios-chatboxes"></ion-icon></ion-label>
-                <p style="margin-left:50px;margin-top:-25px;">话题</p>
-            </ion-avatar>
-         
-          </ion-item>
-    </ion-list>
-    <ion-list >   
-            <ion-item>
-              <ion-avatar item-start>
-                  <ion-label color="white"><ion-icon class="icon" name="ios-body"></ion-icon></ion-label>
-                  <p style="margin-left:50px;margin-top:-25px;">附近的人</p>
-              </ion-avatar>
-            
-            </ion-item>
-    </ion-list>
-    <ion-list >   
-        <ion-item>
-          <ion-avatar item-start>
-              <ion-label color="white"><ion-icon class="icon" name="ios-call"></ion-icon></ion-label>
-              <p style="margin-left:50px;margin-top:-25px;">摇一摇</p>
-          </ion-avatar>
-         
-        </ion-item>
-    </ion-list>
-   
-    
+
+  <!-- 下拉刷新 -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingText="下拉刷新" refreshingText="刷新中"></ion-refresher-content>
+    </ion-refresher>
+
+  <ion-list no-lines>
+
+    <ion-item class="item" *ngFor="let item of items">
+      <div class="top">
+        <img class="image" src="{{item.avatar}}" />
+        <div class="right">
+          <p class="name">{{item.userName}}</p>
+          <p class="time">{{item.circleTime}}</p>
+        </div>
+      </div>
+
+      <div class="bottom" >
+        <p>{{item.circleContent}}</p>
+        <div [ngStyle]="{'display': item.imgURL == 'undefined' ? 'none' : 'block' }" class="images">
+          <ion-thumbnail class="thums thum{{item.imgslength}}">
+            <img id="avatar" src="{{item.imgURL}}">
+          </ion-thumbnail>
+        </div>
+      </div>
+
+    </ion-item>
+
+  </ion-list>
+
+  <!-- <button class="mybutton" (click)="goContactUP()" ion-button icon-only>
+    <ion-icon class="myicon" name="md-add-circle"></ion-icon>
+  </button> -->
+
+
 </ion-content>
+
+<ion-footer class="mybutton" (click)="goContactUP()">
+    <!-- <button> -->
+      <ion-icon class="myicon" name="md-add-circle"></ion-icon>
+    <!-- </button> -->
+  </ion-footer>
